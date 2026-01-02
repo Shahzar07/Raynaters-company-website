@@ -16,10 +16,18 @@ RULES:
 - Always encourage booking a strategy call.
 `;
 
+const getAIClient = () => {
+  const apiKey = process.env.API_KEY;
+  if (!apiKey) {
+    console.warn("Gemini API Key is missing in process.env.API_KEY");
+  }
+  return new GoogleGenAI({ apiKey: apiKey || '' });
+};
+
 export const generateBusinessAutomation = async (
   goal: string
 ): Promise<AutomationResult> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+  const ai = getAIClient();
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -56,7 +64,8 @@ export const generateBusinessAutomation = async (
     });
 
     const text = response.text;
-    if (!text) throw new Error("No response generated");
+    if (!text) throw new Error("Empty response from AI");
+    
     return JSON.parse(text) as AutomationResult;
   } catch (error) {
     console.error("Gemini Automation Error:", error);
@@ -65,7 +74,7 @@ export const generateBusinessAutomation = async (
 };
 
 export const chatWithCompanion = async (history: {role: string, parts: {text: string}[]}[], message: string) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+  const ai = getAIClient();
   try {
     const chat = ai.chats.create({
       model: "gemini-3-flash-preview",
@@ -76,9 +85,9 @@ export const chatWithCompanion = async (history: {role: string, parts: {text: st
     });
 
     const result = await chat.sendMessage({ message });
-    return result.text;
+    return result.text || "I am currently processing. Please repeat.";
   } catch (error) {
     console.error("Chat Error:", error);
-    return "My neural link is experiencing interference. Please try again.";
+    return "My neural link is experiencing interference. Re-aligning...";
   }
 };
