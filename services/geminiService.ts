@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import { AutomationResult } from "../types.ts";
 
@@ -17,11 +18,8 @@ RULES:
 `;
 
 const getAIClient = () => {
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) {
-    console.warn("Gemini API Key is missing in process.env.API_KEY");
-  }
-  return new GoogleGenAI({ apiKey: apiKey || '' });
+  const apiKey = process.env.API_KEY || '';
+  return new GoogleGenAI({ apiKey });
 };
 
 export const generateBusinessAutomation = async (
