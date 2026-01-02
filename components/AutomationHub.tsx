@@ -6,10 +6,11 @@ import {
   CheckCircle2, 
   TrendingUp, 
   LayoutTemplate,
-  MessageSquare
+  MessageSquare,
+  Bot as BotIcon
 } from 'lucide-react';
-import { generateBusinessAutomation } from '../services/geminiService';
-import { AppStatus, AutomationResult } from '../types';
+import { generateBusinessAutomation } from '../services/geminiService.ts';
+import { AppStatus, AutomationResult } from '../types.ts';
 import { 
   AreaChart, 
   Area, 
@@ -48,14 +49,11 @@ const AutomationHub: React.FC<AutomationHubProps> = ({ onBookCall, onAutomationC
 
   return (
     <section className="py-24 bg-white relative overflow-hidden">
-      {/* Decorative background */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-60"></div>
       <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-slate-50 rounded-full blur-3xl opacity-60"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          
-          {/* Left Column: Input */}
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">
               Get a Free <span className="text-[#0551a2]">Automation Strategy</span>
@@ -111,7 +109,6 @@ const AutomationHub: React.FC<AutomationHubProps> = ({ onBookCall, onAutomationC
             </div>
           </div>
 
-          {/* Right Column: Results Dashboard */}
           <div className="relative">
             {status === AppStatus.IDLE && (
               <div className="bg-slate-50/50 backdrop-blur-md rounded-2xl border border-slate-200/60 p-8 h-[500px] flex flex-col items-center justify-center text-center shadow-sm">
@@ -126,7 +123,7 @@ const AutomationHub: React.FC<AutomationHubProps> = ({ onBookCall, onAutomationC
                  <div className="relative w-24 h-24 mb-6">
                    <div className="absolute inset-0 border-4 border-blue-100 rounded-full"></div>
                    <div className="absolute inset-0 border-4 border-t-[#0551a2] rounded-full animate-spin"></div>
-                   <BotIcon className="absolute inset-0 m-auto text-[#0551a2]" />
+                   <BotIcon className="absolute inset-0 m-auto text-[#0551a2]" size={32} />
                  </div>
                  <h3 className="text-xl font-semibold text-slate-800 animate-pulse">Architecting Solution...</h3>
                  <div className="space-y-2 mt-4 text-sm text-slate-500">
@@ -139,9 +136,7 @@ const AutomationHub: React.FC<AutomationHubProps> = ({ onBookCall, onAutomationC
 
             {status === AppStatus.COMPLETE && result && (
               <div className="space-y-6">
-                
-                {/* Result Card 1: Strategy */}
-                <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-xl shadow-slate-200/40 animate-[fadeIn_0.5s_ease-out]">
+                <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-xl shadow-slate-200/40">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-blue-50 rounded-lg text-[#0551a2]">
@@ -149,15 +144,13 @@ const AutomationHub: React.FC<AutomationHubProps> = ({ onBookCall, onAutomationC
                       </div>
                       <h4 className="text-lg font-semibold text-slate-900">Proposed Architecture</h4>
                     </div>
-                    <span className="text-xs bg-blue-50 text-[#0551a2] px-2 py-1 rounded border border-blue-100">Recommendation</span>
                   </div>
                   <p className="text-slate-600 leading-relaxed text-sm">
                     {result.strategy}
                   </p>
                 </div>
 
-                {/* Result Card 2: Sample Output */}
-                <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-xl shadow-slate-200/40 animate-[fadeIn_0.7s_ease-out]">
+                <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-xl shadow-slate-200/40">
                    <div className="flex items-center gap-3 mb-3">
                     <div className="p-2 bg-purple-50 rounded-lg text-purple-600">
                       <MessageSquare size={20} />
@@ -169,8 +162,7 @@ const AutomationHub: React.FC<AutomationHubProps> = ({ onBookCall, onAutomationC
                   </div>
                 </div>
 
-                {/* Result Card 3: Chart */}
-                <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-xl shadow-slate-200/40 animate-[fadeIn_0.9s_ease-out]">
+                <div className="bg-white border border-slate-100 rounded-xl p-6 shadow-xl shadow-slate-200/40">
                    <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 bg-green-50 rounded-lg text-green-600">
                       <TrendingUp size={20} />
@@ -189,10 +181,7 @@ const AutomationHub: React.FC<AutomationHubProps> = ({ onBookCall, onAutomationC
                         <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                         <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
                         <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                        <Tooltip 
-                          contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', color: '#1e293b', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
-                          itemStyle={{ color: '#0551a2' }}
-                        />
+                        <Tooltip />
                         <Area type="monotone" dataKey="value" stroke="#0551a2" strokeWidth={2} fillOpacity={1} fill="url(#colorValue)" />
                       </AreaChart>
                     </ResponsiveContainer>
@@ -207,7 +196,6 @@ const AutomationHub: React.FC<AutomationHubProps> = ({ onBookCall, onAutomationC
                         Book a call to build this <Send size={14} className="group-hover:translate-x-1 transition-transform" />
                     </button>
                 </div>
-
               </div>
             )}
           </div>
@@ -216,25 +204,5 @@ const AutomationHub: React.FC<AutomationHubProps> = ({ onBookCall, onAutomationC
     </section>
   );
 };
-
-const BotIcon = ({ className }: { className?: string }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    className={className}
-    width="32" 
-    height="32"
-  >
-    <rect width="18" height="18" x="3" y="3" rx="2" />
-    <path d="M9 10h.01" />
-    <path d="M15 10h.01" />
-    <path d="M9 15h6" />
-  </svg>
-);
 
 export default AutomationHub;

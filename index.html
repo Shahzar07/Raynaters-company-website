@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script>
+      // Polyfill process for browser environment
+      window.process = window.process || { env: {} };
+      
       tailwind.config = {
         theme: {
           extend: {
@@ -32,7 +35,7 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #f8fafc; /* Slightly off-white globally */
+        background-color: #f8fafc;
         color: #0f172a;
       }
       h1, h2, h3, h4, h5, h6 {
@@ -48,13 +51,11 @@
         -webkit-text-fill-color: transparent;
       }
       
-      /* Smooth fade mask for testimonials */
       .mask-gradient-y {
         mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
         -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
       }
 
-      /* Premium Card Hover */
       .premium-card {
         background: #ffffff;
         border: 1px solid rgba(0, 0, 0, 0.04);
@@ -67,7 +68,6 @@
         border-color: rgba(5, 81, 162, 0.1);
       }
 
-      /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 6px;
       }
@@ -89,6 +89,7 @@
     "react": "https://aistudiocdn.com/react@^19.2.1",
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.32.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.1",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
     "recharts": "https://aistudiocdn.com/recharts@^3.5.1"
   }

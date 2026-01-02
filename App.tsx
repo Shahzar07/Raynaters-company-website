@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import Testimonials from './components/Testimonials';
-import AutomationHub from './components/AutomationHub';
-import Footer from './components/Footer';
-import ContactSection from './components/ContactSection';
-import AiCompanion from './components/AiCompanion';
-import { AutomationResult } from './types';
+import Navbar from './components/Navbar.tsx';
+import Hero from './components/Hero.tsx';
+import Features from './components/Features.tsx';
+import Testimonials from './components/Testimonials.tsx';
+import AutomationHub from './components/AutomationHub.tsx';
+import Footer from './components/Footer.tsx';
+import ContactSection from './components/ContactSection.tsx';
+import AiCompanion from './components/AiCompanion.tsx';
+import { AutomationResult } from './types.ts';
 
 const App: React.FC = () => {
   const [automationContext, setAutomationContext] = useState<AutomationResult | null>(null);
@@ -25,12 +25,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 selection:bg-indigo-500/30 font-sans">
+    <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-500/30 font-sans">
       <Navbar onBookCall={handleBookCall} onContact={scrollToContact} />
       
       <main>
-        {/* We wrap components or add IDs to them directly for the AI Companion's IntersectionObserver */}
-        
         <div id="hero">
           <Hero onBookCall={handleBookCall} />
         </div>
@@ -50,7 +48,6 @@ const App: React.FC = () => {
           />
         </div>
         
-        {/* ContactSection already accepts an ID prop */}
         <ContactSection 
           id="contact" 
           automationContext={automationContext} 
@@ -58,8 +55,6 @@ const App: React.FC = () => {
       </main>
 
       <Footer />
-      
-      {/* The Sentient Orb Companion */}
       <AiCompanion />
     </div>
   );
