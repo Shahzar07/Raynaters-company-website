@@ -1,9 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AutomationResult } from "../types.ts";
 
-const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : '';
-const ai = new GoogleGenAI({ apiKey: apiKey || '' });
-
 const SYSTEM_INSTRUCTION = `You are Raynaters, the sentient AI navigator for the Raynaters Automation Agency website.
 Your personality is: Futuristic, helpful, concise, and professional yet witty.
 You are currently chatting with a visitor on the website.
@@ -22,6 +19,7 @@ RULES:
 export const generateBusinessAutomation = async (
   goal: string
 ): Promise<AutomationResult> => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -57,8 +55,9 @@ export const generateBusinessAutomation = async (
       },
     });
 
-    if (!response.text) throw new Error("No response generated");
-    return JSON.parse(response.text) as AutomationResult;
+    const text = response.text;
+    if (!text) throw new Error("No response generated");
+    return JSON.parse(text) as AutomationResult;
   } catch (error) {
     console.error("Gemini Automation Error:", error);
     throw error;
@@ -66,6 +65,7 @@ export const generateBusinessAutomation = async (
 };
 
 export const chatWithCompanion = async (history: {role: string, parts: {text: string}[]}[], message: string) => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
   try {
     const chat = ai.chats.create({
       model: "gemini-3-flash-preview",
